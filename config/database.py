@@ -1,76 +1,112 @@
 """
 Database Configuration
 Similar to Laravel's config/database.php
+
+This configuration file defines database connections and uses the env() helper
+to pull values from environment variables with sensible defaults.
 """
 
+import sys
 import os
 from pathlib import Path
 
-# Default database connection name
-DEFAULT = os.getenv('DB_CONNECTION', 'sqlite')
+# Add the package to the Python path to import helpers
+sys.path.insert(0, str(Path(__file__).parent.parent.parent / 'package-larapy'))
 
-# Database connections configuration
-CONNECTIONS = {
-    'sqlite': {
-        'driver': 'sqlite',
-        'database': os.getenv('DB_DATABASE', str(Path(__file__).parent.parent / 'database' / 'database.sqlite')),
-        'prefix': '',
-        'foreign_key_constraints': True,
-    },
-
-    'mysql': {
-        'driver': 'mysql',
-        'host': os.getenv('DB_HOST', '127.0.0.1'),
-        'port': os.getenv('DB_PORT', 3306),
-        'database': os.getenv('DB_DATABASE', 'larapy_docs'),
-        'username': os.getenv('DB_USERNAME', 'root'),
-        'password': os.getenv('DB_PASSWORD', ''),
-        'charset': 'utf8mb4',
-        'collation': 'utf8mb4_unicode_ci',
-        'prefix': '',
-        'strict': True,
-        'engine': None,
-    },
-
-    'pgsql': {
-        'driver': 'pgsql',
-        'host': os.getenv('DB_HOST', '127.0.0.1'),
-        'port': os.getenv('DB_PORT', 5432),
-        'database': os.getenv('DB_DATABASE', 'larapy_docs'),
-        'username': os.getenv('DB_USERNAME', 'postgres'),
-        'password': os.getenv('DB_PASSWORD', ''),
-        'charset': 'utf8',
-        'prefix': '',
-        'schema': 'public',
-        'sslmode': 'prefer',
-    },
-}
-
-# Migration repository table
-MIGRATIONS = 'migrations'
-
-# Redis configuration
-REDIS = {
-    'client': os.getenv('REDIS_CLIENT', 'predis'),
+try:
+    from core.helpers import env, database_path
+except ImportError:
+    # Fallback if helpers not available
+    def env(key, default=None):
+        return os.getenv(key, default)
     
-    'options': {
-        'cluster': os.getenv('REDIS_CLUSTER', 'redis'),
-        'prefix': os.getenv('REDIS_PREFIX', f"{os.getenv('APP_NAME', 'larapy_docs')}_database_"),
-    },
+    def database_path(path=''):
+        return str(Path(__file__).parent.parent / 'database' / path) if path else str(Path(__file__).parent.parent / 'database')
+
+
+# Configuration dictionary (Laravel style)
+CONFIG = {
+    # Default database connection name
+    'default': env('DB_CONNECTION', 'sqlite'),
     
-    'default': {
-        'url': os.getenv('REDIS_URL'),
-        'host': os.getenv('REDIS_HOST', '127.0.0.1'),
-        'password': os.getenv('REDIS_PASSWORD'),
-        'port': os.getenv('REDIS_PORT', 6379),
-        'database': os.getenv('REDIS_DB', 0),
+    # Database connections configuration
+    'connections': {
+        'sqlite': {
+            'driver': 'sqlite',
+            'database': env('DB_DATABASE', database_path('database.sqlite')),
+            'prefix': env('DB_PREFIX', ''),
+            'foreign_key_constraints': env('DB_FOREIGN_KEYS', True),
+        },
+
+        'mysql': {
+            'driver': 'mysql',
+            'host': env('DB_HOST', '127.0.0.1'),
+            'port': int(env('DB_PORT', '3306')),
+            'database': env('DB_DATABASE', 'larapy_docs'),
+            'username': env('DB_USERNAME', 'root'),
+            'password': env('DB_PASSWORD', ''),
+            'unix_socket': env('DB_SOCKET', ''),
+            'charset': env('DB_CHARSET', 'utf8mb4'),
+            'collation': env('DB_COLLATION', 'utf8mb4_unicode_ci'),
+            'prefix': env('DB_PREFIX', ''),
+            'prefix_indexes': True,
+            'strict': True,
+            'engine': None,
+            'options': {}
+        },
+
+        'pgsql': {
+            'driver': 'pgsql',
+            'host': env('DB_HOST', '127.0.0.1'),
+            'port': int(env('DB_PORT', '5432')),
+            'database': env('DB_DATABASE', 'larapy_docs'),
+            'username': env('DB_USERNAME', 'postgres'),
+            'password': env('DB_PASSWORD', ''),
+            'charset': env('DB_CHARSET', 'utf8'),
+            'prefix': env('DB_PREFIX', ''),
+            'prefix_indexes': True,
+            'search_path': env('DB_SEARCH_PATH', 'public'),
+            'sslmode': env('DB_SSLMODE', 'prefer'),
+        },
     },
+
+    # Migration repository table name
+    'migrations': env('DB_MIGRATIONS_TABLE', 'migrations'),
     
-    'cache': {
-        'url': os.getenv('REDIS_URL'),
-        'host': os.getenv('REDIS_HOST', '127.0.0.1'),
-        'password': os.getenv('REDIS_PASSWORD'),
-        'port': os.getenv('REDIS_PORT', 6379),
-        'database': os.getenv('REDIS_CACHE_DB', 1),
-    },
+    # Redis configuration
+    'redis': {
+        'client': env('REDIS_CLIENT', 'predis'),
+        
+        'options': {
+            'cluster': env('REDIS_CLUSTER', 'redis'),
+            'prefix': env('REDIS_PREFIX', f"{env('APP_NAME', 'larapy_docs')}_database_"),
+        },
+        
+        'default': {
+            'url': env('REDIS_URL'),
+            'host': env('REDIS_HOST', '127.0.0.1'),
+            'username': env('REDIS_USERNAME'),
+            'password': env('REDIS_PASSWORD'),
+            'port': int(env('REDIS_PORT', '6379')),
+            'database': int(env('REDIS_DB', '0')),
+        },
+        
+        'cache': {
+            'url': env('REDIS_URL'),
+            'host': env('REDIS_HOST', '127.0.0.1'),
+            'username': env('REDIS_USERNAME'),
+            'password': env('REDIS_PASSWORD'),
+            'port': int(env('REDIS_PORT', '6379')),
+            'database': int(env('REDIS_CACHE_DB', '1')),
+        },
+        
+        'session': {
+            'url': env('REDIS_URL'),
+            'host': env('REDIS_HOST', '127.0.0.1'),
+            'username': env('REDIS_USERNAME'),
+            'password': env('REDIS_PASSWORD'),
+            'port': int(env('REDIS_PORT', '6379')),
+            'database': int(env('REDIS_SESSION_DB', '2')),
+        },
+    }
 }

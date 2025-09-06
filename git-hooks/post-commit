@@ -1,0 +1,31 @@
+#!/bin/bash
+
+# Git post-commit hook to auto-update package
+# Place this in package-larapy/.git/hooks/post-commit
+
+echo "🔄 Post-commit hook: Updating documentation website package..."
+
+# Path to documentation website (adjust as needed)
+DOCS_DIR="../documentation-webiste-larapy"
+
+if [ -d "$DOCS_DIR" ]; then
+    cd "$DOCS_DIR"
+    
+    # Check if update script exists
+    if [ -f "simple_update.py" ]; then
+        echo "📦 Running package update..."
+        python simple_update.py --quiet
+        
+        if [ $? -eq 0 ]; then
+            echo "✅ Documentation website package updated successfully"
+        else
+            echo "❌ Failed to update documentation website package"
+        fi
+    else
+        echo "⚠️  Update script not found in documentation website"
+    fi
+else
+    echo "⚠️  Documentation website directory not found: $DOCS_DIR"
+fi
+
+echo "✅ Post-commit hook completed"

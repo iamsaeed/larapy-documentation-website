@@ -5,13 +5,15 @@ Handles the home page requests
 
 from .controller import Controller
 from larapy.view import View
+from larapy.http.request import Request
+from larapy.http.response import Response
 
 class HomeController(Controller):
     """
     Handle home page requests
     """
     
-    async def index(self, request):
+    async def index(self, request: Request) -> Response:
         """
         Show the application home page.
         

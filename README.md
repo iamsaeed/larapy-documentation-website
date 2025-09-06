@@ -179,6 +179,66 @@ Create Jinja2 templates in `resources/views/`:
 {% endblock %}
 ```
 
+## ⚙️ Configuration System
+
+This project uses a Laravel-like configuration system with proper environment variable handling:
+
+### **Environment Configuration**
+- **Environment Variables**: Use `.env` file for environment-specific settings
+- **Configuration Files**: Structured config files in `config/` directory
+- **Helper Functions**: Laravel-like `env()` and `config()` helpers
+- **Caching**: Configuration caching for production performance
+
+### **Configuration Usage**
+
+**Environment Variables (.env):**
+```bash
+APP_NAME=Larapy Documentation
+APP_ENV=production
+APP_DEBUG=false
+DB_CONNECTION=sqlite
+DB_DATABASE=database/database.sqlite
+```
+
+**Configuration Files (config/app.py):**
+```python
+from core.helpers import env
+
+CONFIG = {
+    'name': env('APP_NAME', 'Larapy Documentation'),
+    'debug': env('APP_DEBUG', False),
+    'timezone': env('APP_TIMEZONE', 'UTC'),
+}
+```
+
+**Using Configuration:**
+```python
+from core.helpers import config
+
+# Get configuration values
+app_name = config('app.name')
+debug_mode = config('app.debug')
+database_driver = config('database.default')
+```
+
+### **Configuration Precedence**
+1. System environment variables (highest priority)
+2. Environment-specific `.env` files
+3. Default `.env` file
+4. Default values in configuration files (lowest priority)
+
+### **Configuration Commands**
+```bash
+# Cache configuration for production
+larapy config:cache
+
+# Clear configuration cache
+larapy config:clear
+
+# Show current configuration
+larapy config:show
+```
+
 ## 📚 Documentation Structure (Coming Soon)
 
 The website is prepared for comprehensive documentation including:

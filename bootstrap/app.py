@@ -3,7 +3,6 @@ Application Bootstrap
 This file bootstraps the Larapy application similar to Laravel's bootstrap/app.php
 """
 
-import os
 from pathlib import Path
 from flask import Flask, render_template, jsonify
 from larapy.core.application import Application
@@ -78,7 +77,7 @@ def register_routes(flask_app, larapy_app):
                 ]
             }
             return render_template('home.html', **data)
-        except Exception as e:
+        except Exception:
             # Fallback if template rendering fails
             return f"""
             <html>
@@ -123,8 +122,8 @@ def register_routes(flask_app, larapy_app):
 def register_service_providers(larapy_app):
     """Register Larapy service providers"""
     try:
-        from app.Providers.AppServiceProvider import AppServiceProvider
-        from app.Providers.RouteServiceProvider import RouteServiceProvider
+        from app.providers.app_service_provider import AppServiceProvider
+        from app.providers.route_service_provider import RouteServiceProvider
         
         larapy_app.register(AppServiceProvider)
         larapy_app.register(RouteServiceProvider)
@@ -135,10 +134,10 @@ def register_service_providers(larapy_app):
 def register_middleware(larapy_app):
     """Register application middleware"""
     try:
-        from app.Http.Kernel import Kernel
+        from app.http.kernel import Kernel
         
         kernel = Kernel(larapy_app)
         larapy_app.instance('http.kernel', kernel)
     except ImportError:
-        # HTTP Kernel not yet implemented, skip for now  
+        # HTTP Kernel not yet implemented, skip for now
         pass

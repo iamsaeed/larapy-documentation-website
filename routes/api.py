@@ -15,7 +15,7 @@ def register_routes(app):
     # API routes will be prefixed with '/api'
     with Route.group(prefix='/api', middleware=['api']):
         # Documentation API endpoints (for future implementation)
-        # Route.get('/docs', 'app.Http.Controllers.Api.DocsController@index')
-        # Route.get('/docs/{slug}', 'app.Http.Controllers.Api.DocsController@show')
-        # Route.get('/search', 'app.Http.Controllers.Api.SearchController@index')
+        # Route.get('/docs', 'app.http.controllers.api.docs_controller@index')
+        # Route.get('/docs/{slug}', 'app.http.controllers.api.docs_controller@show')
+        # Route.get('/search', 'app.http.controllers.api.search_controller@index')
         pass

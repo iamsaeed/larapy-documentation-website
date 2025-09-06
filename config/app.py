@@ -31,8 +31,8 @@ APP_KEY = os.getenv('APP_KEY', '')
 
 # Application Service Providers
 PROVIDERS = [
-    'app.Providers.AppServiceProvider.AppServiceProvider',
-    'app.Providers.RouteServiceProvider.RouteServiceProvider',
+    'app.providers.app_service_provider.AppServiceProvider',
+    'app.providers.route_service_provider.RouteServiceProvider',
 ]
 
 # Class Aliases

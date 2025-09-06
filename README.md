@@ -5,7 +5,7 @@ A documentation website for the Larapy framework, built with Laravel-style folde
 ## 🚀 Features
 
 - **Laravel-style Architecture**: Familiar folder structure with `app/`, `config/`, `routes/`, `resources/`, etc.
-- **Modern Web Framework**: Built on top of Larapy framework with FastAPI under the hood
+- **Modern Web Framework**: Built on top of Larapy framework with Flask under the hood
 - **Beautiful UI**: Bootstrap-based responsive design with modern components
 - **Documentation Ready**: Structure prepared for comprehensive documentation
 - **Developer Friendly**: Hot reload, debugging, and development tools
@@ -15,14 +15,14 @@ A documentation website for the Larapy framework, built with Laravel-style folde
 ```
 documentation-webiste-larapy/
 ├── app/
-│   ├── Http/
-│   │   ├── Controllers/
-│   │   │   ├── Controller.py          # Base controller
-│   │   │   └── HomeController.py      # Home page controller
-│   │   └── Kernel.py                  # HTTP kernel with middleware
-│   └── Providers/
-│       ├── AppServiceProvider.py      # Application services
-│       └── RouteServiceProvider.py    # Route configuration
+│   ├── http/
+│   │   ├── controllers/
+│   │   │   ├── controller.py          # Base controller
+│   │   │   └── home_controller.py     # Home page controller
+│   │   └── kernel.py                  # HTTP kernel with middleware
+│   └── providers/
+│       ├── app_service_provider.py    # Application services
+│       └── route_service_provider.py  # Route configuration
 ├── bootstrap/
 │   └── app.py                         # Application bootstrap
 ├── config/
@@ -79,13 +79,38 @@ documentation-webiste-larapy/
 
 ## 🎯 Quick Start
 
-The application follows Laravel conventions:
+The application follows Laravel conventions with PEP 8 naming:
 
-- **Controllers**: Located in `app/Http/Controllers/`
+- **Controllers**: Located in `app/http/controllers/`
 - **Routes**: Defined in `routes/web.py` and `routes/api.py`
 - **Views**: Jinja2 templates in `resources/views/`
 - **Configuration**: Settings in `config/` directory
 - **Public Assets**: CSS, JS, images in `public/`
+
+## 🐍 Python Naming Conventions (PEP 8)
+
+This project strictly follows PEP 8 naming conventions to ensure consistency and readability:
+
+### **Naming Standards**
+- **Modules/Files**: `snake_case.py` (e.g., `home_controller.py`, `app_service_provider.py`)
+- **Directories**: `snake_case/` (e.g., `http/`, `controllers/`, `providers/`)
+- **Classes**: `PascalCase` (e.g., `HomeController`, `AppServiceProvider`, `RouteServiceProvider`)
+- **Functions/Methods**: `snake_case` (e.g., `register_routes()`, `create_application()`, `configure_flask_app()`)
+- **Variables**: `snake_case` (e.g., `flask_app`, `larapy_app`, `base_path`)
+- **Constants**: `UPPER_SNAKE_CASE` (e.g., `APP_NAME`, `APP_DEBUG`, `MAX_CONNECTIONS`)
+
+### **Laravel Compatibility Note**
+While Laravel uses PascalCase for directories (e.g., `Http/Controllers/`), we follow Python's PEP 8 convention of snake_case for all module and directory names. This ensures consistency with Python ecosystem standards while maintaining Laravel's familiar structure and functionality.
+
+### **Migration from Laravel-style Naming**
+If you're coming from Laravel-style naming, here's the mapping:
+```
+Laravel Style          →  Python PEP 8 Style
+app/Http/              →  app/http/
+app/Http/Controllers/  →  app/http/controllers/
+HomeController.php     →  home_controller.py
+AppServiceProvider.php →  app_service_provider.py
+```
 
 ## 🔧 Development
 
@@ -94,14 +119,14 @@ The application follows Laravel conventions:
 Edit `routes/web.py`:
 ```python
 # Add to register_routes function
-Route.get('/docs', 'app.Http.Controllers.DocsController@index').name('docs')
+Route.get('/docs', 'app.http.controllers.docs_controller@index').name('docs')
 ```
 
 ### Creating Controllers
 
 Controllers should extend the base `Controller` class:
 ```python
-from .Controller import Controller
+from .controller import Controller
 from larapy.view import View
 
 class DocsController(Controller):

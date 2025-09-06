@@ -3,7 +3,7 @@ Home Controller
 Handles the home page requests
 """
 
-from .Controller import Controller
+from .controller import Controller
 from larapy.view import View
 
 class HomeController(Controller):

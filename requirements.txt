@@ -1,0 +1,29 @@
+# Larapy Framework
+git+https://github.com/larapy/larapy.git
+
+# Web Server
+uvicorn[standard]==0.24.0
+fastapi==0.104.1
+
+# Database
+sqlalchemy==2.0.23
+alembic==1.12.1
+
+# Authentication
+python-jose[cryptography]==3.3.0
+passlib[bcrypt]==1.7.4
+
+# Caching
+redis==5.0.1
+
+# Templates
+jinja2==3.1.2
+
+# Environment
+python-dotenv==1.0.0
+
+# Development
+pytest==7.4.3
+pytest-asyncio==0.21.1
+black==23.11.0
+flake8==6.1.0

@@ -15,14 +15,27 @@ A documentation website for the Larapy framework, built with Laravel-style folde
 ```
 documentation-webiste-larapy/
 ├── app/
+│   ├── console/                       # Console commands
+│   │   └── commands/                  # Artisan-like commands
+│   ├── events/                        # Event classes
+│   ├── exceptions/                    # Exception handlers
 │   ├── http/
 │   │   ├── controllers/
 │   │   │   ├── controller.py          # Base controller
 │   │   │   └── home_controller.py     # Home page controller
+│   │   ├── middleware/                # HTTP middleware
+│   │   ├── requests/                  # Form request classes
 │   │   └── kernel.py                  # HTTP kernel with middleware
-│   └── providers/
-│       ├── app_service_provider.py    # Application services
-│       └── route_service_provider.py  # Route configuration
+│   ├── jobs/                          # Queue job classes
+│   ├── listeners/                     # Event listeners
+│   ├── mail/                          # Mail classes
+│   ├── models/                        # Eloquent models
+│   ├── notifications/                 # Notification classes
+│   ├── policies/                      # Authorization policies
+│   ├── providers/
+│   │   ├── app_service_provider.py    # Application services
+│   │   └── route_service_provider.py  # Route configuration
+│   └── rules/                         # Custom validation rules
 ├── bootstrap/
 │   └── app.py                         # Application bootstrap
 ├── config/
@@ -103,13 +116,31 @@ This project strictly follows PEP 8 naming conventions to ensure consistency and
 While Laravel uses PascalCase for directories (e.g., `Http/Controllers/`), we follow Python's PEP 8 convention of snake_case for all module and directory names. This ensures consistency with Python ecosystem standards while maintaining Laravel's familiar structure and functionality.
 
 ### **Migration from Laravel-style Naming**
-If you're coming from Laravel-style naming, here's the mapping:
+If you're coming from Laravel-style naming, here's the complete mapping:
 ```
-Laravel Style          →  Python PEP 8 Style
-app/Http/              →  app/http/
-app/Http/Controllers/  →  app/http/controllers/
-HomeController.php     →  home_controller.py
-AppServiceProvider.php →  app_service_provider.py
+Laravel Style              →  Python PEP 8 Style
+app/Console/               →  app/console/
+app/Console/Commands/      →  app/console/commands/
+app/Events/                →  app/events/
+app/Exceptions/            →  app/exceptions/
+app/Http/                  →  app/http/
+app/Http/Controllers/      →  app/http/controllers/
+app/Http/Middleware/       →  app/http/middleware/
+app/Http/Requests/         →  app/http/requests/
+app/Jobs/                  →  app/jobs/
+app/Listeners/             →  app/listeners/
+app/Mail/                  →  app/mail/
+app/Models/                →  app/models/
+app/Notifications/         →  app/notifications/
+app/Policies/              →  app/policies/
+app/Providers/             →  app/providers/
+app/Rules/                 →  app/rules/
+
+# File naming examples
+HomeController.php         →  home_controller.py
+AppServiceProvider.php     →  app_service_provider.py
+UserAuthRequest.php        →  user_auth_request.py
+SendEmailJob.php          →  send_email_job.py
 ```
 
 ## 🔧 Development

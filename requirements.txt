@@ -1,5 +1,5 @@
 # Larapy Framework
-git+https://github.com/larapy/larapy.git
+git+https://github.com/iamsaeed/larapy-package
 
 # Web Server
 uvicorn[standard]==0.24.0

@@ -15,13 +15,9 @@ def register_routes(app):
     # Home route
     Route.get('/', 'app.Http.Controllers.HomeController@index').name('home')
     
-    # Example additional routes (commented out)
-    # Route.get('/about', 'app.Http.Controllers.HomeController@about').name('about')
-    # Route.get('/contact', 'app.Http.Controllers.HomeController@contact').name('contact')
+    # Documentation routes (for future implementation)
+    # Route.get('/docs', 'app.Http.Controllers.DocsController@index').name('docs')
+    # Route.get('/docs/{slug}', 'app.Http.Controllers.DocsController@show').name('docs.show')
     
-    # Authentication routes (when implemented)
-    # Route.group(prefix='/auth', routes=[
-    #     Route.get('/login', 'app.Http.Controllers.Auth.LoginController@showLoginForm').name('login'),
-    #     Route.post('/login', 'app.Http.Controllers.Auth.LoginController@login'),
-    #     Route.post('/logout', 'app.Http.Controllers.Auth.LoginController@logout').name('logout'),
-    # ])
+    # API documentation routes
+    # Route.get('/api-docs', 'app.Http.Controllers.ApiDocsController@index').name('api-docs')

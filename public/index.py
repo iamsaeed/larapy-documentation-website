@@ -19,5 +19,10 @@ from bootstrap.app import create_application
 app = create_application()
 
 if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(app, host="127.0.0.1", port=8000, reload=True)
+    # Run Flask development server
+    app.run(
+        host="127.0.0.1", 
+        port=8000, 
+        debug=True,
+        use_reloader=True
+    )

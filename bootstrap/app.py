@@ -3,54 +3,142 @@ Application Bootstrap
 This file bootstraps the Larapy application similar to Laravel's bootstrap/app.php
 """
 
+import os
 from pathlib import Path
-from larapy import Application
-from larapy.http.kernel import HttpKernel
+from flask import Flask, render_template, jsonify
+from larapy.core.application import Application
 
 def create_application():
     """
-    Create and configure the Larapy application instance
+    Create and configure the Flask application instance integrated with Larapy
     """
-    # Create application instance
-    app = Application(base_path=str(Path(__file__).parent.parent))
+    # Set up base path
+    base_path = str(Path(__file__).parent.parent)
     
-    # Register configuration
-    app.register_config_files()
+    # Create Larapy application instance
+    larapy_app = Application(base_path=base_path)
     
-    # Register service providers
-    register_service_providers(app)
+    # Load environment variables
+    larapy_app.load_environment_variables()
     
-    # Register middleware
-    register_middleware(app)
+    # Load configuration
+    larapy_app.load_config()
+    
+    # Create Flask application
+    flask_app = Flask(
+        __name__,
+        template_folder=str(Path(base_path) / 'resources' / 'views'),
+        static_folder=str(Path(base_path) / 'public')
+    )
+    
+    # Configure Flask app
+    configure_flask_app(flask_app, larapy_app)
     
     # Register routes
-    register_routes(app)
+    register_routes(flask_app, larapy_app)
     
-    return app
-
-def register_service_providers(app):
-    """Register application service providers"""
-    from app.Providers.AppServiceProvider import AppServiceProvider
-    from app.Providers.AuthServiceProvider import AuthServiceProvider
-    from app.Providers.RouteServiceProvider import RouteServiceProvider
+    # Register service providers (if needed)
+    register_service_providers(larapy_app)
     
-    app.register(AppServiceProvider)
-    app.register(AuthServiceProvider)
-    app.register(RouteServiceProvider)
+    # Boot the Larapy application
+    larapy_app.boot()
+    
+    # Store Larapy app reference in Flask app
+    flask_app.larapy = larapy_app
+    
+    return flask_app
 
-def register_middleware(app):
+def configure_flask_app(flask_app, larapy_app):
+    """Configure Flask application settings"""
+    flask_app.config.update({
+        'SECRET_KEY': larapy_app.get_config('app.APP_KEY', 'larapy-default-secret-key'),
+        'DEBUG': larapy_app.get_config('app.APP_DEBUG', larapy_app.is_local()),
+        'ENV': larapy_app.environment,
+    })
+
+def register_routes(flask_app, larapy_app):
+    """Register Flask routes"""
+    
+    @flask_app.route('/')
+    def home():
+        """Home page route"""
+        try:
+            # Get data for the home page
+            data = {
+                'title': 'Welcome to Larapy Documentation Website',
+                'message': 'Laravel\'s elegant syntax meets Python\'s simplicity',
+                'version': larapy_app.version(),
+                'features': [
+                    'Larapy ORM',
+                    'Authentication System', 
+                    'Middleware Support',
+                    'Caching System',
+                    'Queue System',
+                    'Event System'
+                ]
+            }
+            return render_template('home.html', **data)
+        except Exception as e:
+            # Fallback if template rendering fails
+            return f"""
+            <html>
+            <head>
+                <title>Welcome to Larapy Documentation</title>
+                <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+            </head>
+            <body>
+                <div class="container mt-5">
+                    <div class="jumbotron text-center">
+                        <h1 class="display-4">Welcome to Larapy Documentation!</h1>
+                        <p class="lead">Laravel's elegant syntax meets Python's simplicity</p>
+                        <p class="text-muted">Version {larapy_app.version()}</p>
+                        <p class="text-info">Flask integration successful!</p>
+                    </div>
+                </div>
+            </body>
+            </html>
+            """
+    
+    @flask_app.route('/health')
+    def health():
+        """Health check endpoint"""
+        return jsonify({
+            'status': 'healthy',
+            'version': larapy_app.version(),
+            'environment': larapy_app.environment,
+            'framework': 'Larapy with Flask',
+            'debug': larapy_app.is_local()
+        })
+    
+    @flask_app.route('/api/info')
+    def api_info():
+        """API information endpoint"""
+        return jsonify({
+            'name': 'Larapy Documentation API',
+            'version': larapy_app.version(),
+            'framework': 'Larapy with Flask',
+            'environment': larapy_app.environment
+        })
+
+def register_service_providers(larapy_app):
+    """Register Larapy service providers"""
+    try:
+        from app.Providers.AppServiceProvider import AppServiceProvider
+        from app.Providers.RouteServiceProvider import RouteServiceProvider
+        
+        larapy_app.register(AppServiceProvider)
+        larapy_app.register(RouteServiceProvider)
+    except ImportError:
+        # Service providers not yet implemented, skip for now
+        pass
+
+def register_middleware(larapy_app):
     """Register application middleware"""
-    from app.Http.Kernel import Kernel
-    
-    kernel = Kernel(app)
-    app.singleton('http.kernel', lambda: kernel)
-
-def register_routes(app):
-    """Register application routes"""
-    # Web routes
-    from routes import web
-    web.register_routes(app)
-    
-    # API routes
-    from routes import api
-    api.register_routes(app)
+    try:
+        from app.Http.Kernel import Kernel
+        
+        kernel = Kernel(larapy_app)
+        larapy_app.instance('http.kernel', kernel)
+    except ImportError:
+        # HTTP Kernel not yet implemented, skip for now  
+        pass

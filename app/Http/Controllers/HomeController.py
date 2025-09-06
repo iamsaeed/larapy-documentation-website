@@ -4,7 +4,6 @@ Handles the home page requests
 """
 
 from .Controller import Controller
-from larapy.http.response import Response
 from larapy.view import View
 
 class HomeController(Controller):
@@ -24,9 +23,9 @@ class HomeController(Controller):
         """
         # You can pass data to the view
         data = {
-            'title': 'Welcome to Larapy',
+            'title': 'Welcome to Larapy Documentation Website',
             'message': 'Laravel\'s elegant syntax meets Python\'s simplicity',
-            'version': '0.2.0',
+            'version': '1.0.0',
             'features': [
                 'Larapy ORM',
                 'Authentication System',

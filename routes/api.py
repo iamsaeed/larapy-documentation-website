@@ -14,10 +14,8 @@ def register_routes(app):
     
     # API routes will be prefixed with '/api'
     with Route.group(prefix='/api', middleware=['api']):
-        # Example API routes (commented out)
-        # Route.get('/users', 'app.Http.Controllers.Api.UserController@index')
-        # Route.post('/users', 'app.Http.Controllers.Api.UserController@store')
-        # Route.get('/users/{id}', 'app.Http.Controllers.Api.UserController@show')
-        # Route.put('/users/{id}', 'app.Http.Controllers.Api.UserController@update')
-        # Route.delete('/users/{id}', 'app.Http.Controllers.Api.UserController@destroy')
+        # Documentation API endpoints (for future implementation)
+        # Route.get('/docs', 'app.Http.Controllers.Api.DocsController@index')
+        # Route.get('/docs/{slug}', 'app.Http.Controllers.Api.DocsController@show')
+        # Route.get('/search', 'app.Http.Controllers.Api.SearchController@index')
         pass

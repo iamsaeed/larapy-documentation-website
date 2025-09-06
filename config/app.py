@@ -4,10 +4,9 @@ Similar to Laravel's config/app.php
 """
 
 import os
-from pathlib import Path
 
 # Application Name
-APP_NAME = os.getenv('APP_NAME', 'Larapy')
+APP_NAME = os.getenv('APP_NAME', 'Larapy Documentation')
 
 # Application Environment
 APP_ENV = os.getenv('APP_ENV', 'production')
@@ -33,9 +32,6 @@ APP_KEY = os.getenv('APP_KEY', '')
 # Application Service Providers
 PROVIDERS = [
     'app.Providers.AppServiceProvider.AppServiceProvider',
-    'app.Providers.AuthServiceProvider.AuthServiceProvider',
-    'app.Providers.BroadcastServiceProvider.BroadcastServiceProvider',
-    'app.Providers.EventServiceProvider.EventServiceProvider',
     'app.Providers.RouteServiceProvider.RouteServiceProvider',
 ]
 

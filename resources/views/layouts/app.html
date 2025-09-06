@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>{% block title %}{{ title }} - {{ config('app.name', 'Larapy') }}{% endblock %}</title>
+    <title>{% block title %}{{ title }} - {{ config('app.name', 'Larapy Documentation') }}{% endblock %}</title>
     
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -15,6 +15,9 @@
     <!-- Custom CSS -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     
+    <!-- Prism CSS for code highlighting -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" rel="stylesheet">
+    
     {% block head %}{% endblock %}
 </head>
 <body>
@@ -23,7 +26,7 @@
         <nav class="navbar navbar-expand-md navbar-dark bg-primary shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ route('home') }}">
-                    {{ config('app.name', 'Larapy') }}
+                    <strong>{{ config('app.name', 'Larapy Documentation') }}</strong>
                 </a>
                 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
@@ -36,35 +39,21 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('home') }}">Home</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" data-bs-toggle="tooltip" title="Coming Soon">Documentation</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" data-bs-toggle="tooltip" title="Coming Soon">API Reference</a>
+                        </li>
                     </ul>
                     
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
-                        <!-- Authentication Links -->
-                        {% if auth.guest() %}
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">Login</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('register') }}">Register</a>
-                            </li>
-                        {% else %}
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                                    {{ auth.user().name }}
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="{{ route('logout') }}" 
-                                           onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                        Logout
-                                    </a></li>
-                                </ul>
-                                
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                    {{ csrf_field() }}
-                                </form>
-                            </li>
-                        {% endif %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://github.com/larapy/larapy" target="_blank">
+                                <i class="bi bi-github"></i> GitHub
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -74,13 +63,46 @@
         <main class="py-4">
             {% block content %}{% endblock %}
         </main>
+        
+        <!-- Footer -->
+        <footer class="bg-light py-4 mt-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <p class="text-muted mb-0">
+                            © {{ "now"|date("Y") }} Larapy Documentation. Built with ❤️ using Python.
+                        </p>
+                    </div>
+                    <div class="col-md-6 text-end">
+                        <p class="text-muted mb-0">
+                            Laravel's elegant syntax meets Python's simplicity
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </footer>
     </div>
     
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    
+    <!-- Prism JS for code highlighting -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    
     <!-- Custom JS -->
     <script src="{{ asset('js/app.js') }}"></script>
+    
+    <!-- Initialize tooltips -->
+    <script>
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        })
+    </script>
     
     {% block scripts %}{% endblock %}
 </body>

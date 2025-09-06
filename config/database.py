@@ -22,7 +22,7 @@ CONNECTIONS = {
         'driver': 'mysql',
         'host': os.getenv('DB_HOST', '127.0.0.1'),
         'port': os.getenv('DB_PORT', 3306),
-        'database': os.getenv('DB_DATABASE', 'larapy'),
+        'database': os.getenv('DB_DATABASE', 'larapy_docs'),
         'username': os.getenv('DB_USERNAME', 'root'),
         'password': os.getenv('DB_PASSWORD', ''),
         'charset': 'utf8mb4',
@@ -36,7 +36,7 @@ CONNECTIONS = {
         'driver': 'pgsql',
         'host': os.getenv('DB_HOST', '127.0.0.1'),
         'port': os.getenv('DB_PORT', 5432),
-        'database': os.getenv('DB_DATABASE', 'larapy'),
+        'database': os.getenv('DB_DATABASE', 'larapy_docs'),
         'username': os.getenv('DB_USERNAME', 'postgres'),
         'password': os.getenv('DB_PASSWORD', ''),
         'charset': 'utf8',
@@ -55,7 +55,7 @@ REDIS = {
     
     'options': {
         'cluster': os.getenv('REDIS_CLUSTER', 'redis'),
-        'prefix': os.getenv('REDIS_PREFIX', f"{os.getenv('APP_NAME', 'larapy')}_database_"),
+        'prefix': os.getenv('REDIS_PREFIX', f"{os.getenv('APP_NAME', 'larapy_docs')}_database_"),
     },
     
     'default': {

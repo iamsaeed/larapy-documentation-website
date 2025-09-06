@@ -5,59 +5,125 @@
 {% block content %}
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">
-                    <h1 class="mb-0">{{ title }}</h1>
+        <div class="col-md-10">
+            <!-- Hero Section -->
+            <div class="jumbotron bg-primary text-white rounded p-5 mb-5">
+                <div class="text-center">
+                    <h1 class="display-4 fw-bold">{{ title }}</h1>
+                    <p class="lead">{{ message }}</p>
+                    <p class="mb-4">Version {{ version }}</p>
+                    <a class="btn btn-light btn-lg" href="#getting-started" role="button">
+                        <i class="bi bi-rocket"></i> Get Started
+                    </a>
+                    <a class="btn btn-outline-light btn-lg ms-2" href="https://github.com/larapy/larapy" target="_blank" role="button">
+                        <i class="bi bi-github"></i> View on GitHub
+                    </a>
                 </div>
-                
-                <div class="card-body">
-                    <div class="text-center mb-4">
-                        <h2 class="text-primary">{{ message }}</h2>
-                        <p class="lead">Version {{ version }}</p>
-                    </div>
-                    
-                    <div class="row">
-                        <div class="col-md-6">
-                            <h4>🚀 Features</h4>
+            </div>
+            
+            <!-- Features Section -->
+            <div class="row mb-5">
+                <div class="col-md-6">
+                    <div class="card h-100">
+                        <div class="card-header bg-success text-white">
+                            <h4 class="mb-0"><i class="bi bi-check-circle"></i> Core Features</h4>
+                        </div>
+                        <div class="card-body">
                             <ul class="list-group list-group-flush">
                                 {% for feature in features %}
-                                <li class="list-group-item">
-                                    <i class="text-success">✓</i> {{ feature }}
+                                <li class="list-group-item d-flex align-items-center">
+                                    <i class="bi bi-check text-success me-2"></i> {{ feature }}
                                 </li>
                                 {% endfor %}
                             </ul>
                         </div>
-                        
-                        <div class="col-md-6">
-                            <h4>📚 Quick Start</h4>
-                            <div class="bg-light p-3 rounded">
-                                <code>
-                                    # Install Larapy<br>
-                                    pip install git+https://github.com/larapy/larapy.git<br><br>
-                                    
-                                    # Run the application<br>
-                                    python public/index.py
-                                </code>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="card h-100">
+                        <div class="card-header bg-info text-white">
+                            <h4 class="mb-0"><i class="bi bi-code-square"></i> Quick Start</h4>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">Get up and running with Larapy in minutes:</p>
+                            <div class="bg-dark text-light p-3 rounded">
+                                <pre><code class="language-bash"># Install dependencies
+pip install -r requirements.txt
+
+# Set up environment
+cp .env.example .env
+
+# Run the application
+python public/index.py</code></pre>
                             </div>
                         </div>
                     </div>
-                    
-                    <hr class="my-4">
-                    
-                    <div class="text-center">
-                        <p class="text-muted">
-                            You're running Larapy with Laravel-style folder structure!<br>
-                            Edit <code>resources/views/home.html</code> to customize this page.
-                        </p>
-                        
-                        <div class="mt-3">
-                            <a href="https://github.com/larapy/larapy" class="btn btn-primary" target="_blank">
-                                📖 Documentation
-                            </a>
-                            <a href="https://github.com/larapy/larapy" class="btn btn-outline-secondary" target="_blank">
-                                🐙 GitHub
-                            </a>
+                </div>
+            </div>
+            
+            <!-- Getting Started Section -->
+            <div id="getting-started" class="row mb-5">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="mb-0"><i class="bi bi-book"></i> Getting Started</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <div class="text-center">
+                                        <div class="bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 60px; height: 60px;">
+                                            <i class="bi bi-download" style="font-size: 24px;"></i>
+                                        </div>
+                                        <h5 class="mt-3">1. Install</h5>
+                                        <p class="text-muted">Clone the repository and install dependencies</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <div class="text-center">
+                                        <div class="bg-success text-white rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 60px; height: 60px;">
+                                            <i class="bi bi-gear" style="font-size: 24px;"></i>
+                                        </div>
+                                        <h5 class="mt-3">2. Configure</h5>
+                                        <p class="text-muted">Set up your environment and database</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <div class="text-center">
+                                        <div class="bg-warning text-dark rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 60px; height: 60px;">
+                                            <i class="bi bi-play" style="font-size: 24px;"></i>
+                                        </div>
+                                        <h5 class="mt-3">3. Run</h5>
+                                        <p class="text-muted">Start building amazing applications</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Documentation Preview -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="mb-0"><i class="bi bi-file-earmark-text"></i> Documentation</h3>
+                        </div>
+                        <div class="card-body">
+                            <p class="text-center text-muted py-5">
+                                <i class="bi bi-tools" style="font-size: 48px;"></i><br>
+                                <strong>Documentation is coming soon!</strong><br>
+                                We're working hard to bring you comprehensive documentation for Larapy.
+                            </p>
+                            <div class="text-center">
+                                <span class="badge bg-info">Coming Soon</span>
+                                <span class="badge bg-secondary">Installation Guide</span>
+                                <span class="badge bg-secondary">API Reference</span>
+                                <span class="badge bg-secondary">Examples</span>
+                                <span class="badge bg-secondary">Best Practices</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -69,7 +135,7 @@
 
 {% block scripts %}
 <script>
-    console.log('🎉 Welcome to Larapy!');
+    console.log('🎉 Welcome to Larapy Documentation!');
     console.log('📁 Laravel-style folder structure loaded successfully');
 </script>
 {% endblock %}

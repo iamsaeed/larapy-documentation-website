@@ -1,282 +1,155 @@
-# My Larapy Project
+# Larapy Documentation Website
 
-A Laravel-style Python web application built with the Larapy framework.
+A documentation website for the Larapy framework, built with Laravel-style folder structure and powered by Python.
 
 ## 🚀 Features
 
-- **Laravel-inspired structure** - Familiar directory layout and conventions
-- **Larapy ORM** - Eloquent-like database interactions
-- **Authentication System** - User authentication and authorization
-- **Middleware Support** - Request/response filtering
-- **Template Engine** - Jinja2 with Laravel Blade-like helpers
-- **Console Commands** - Artisan-equivalent CLI tools
-- **Service Container** - Dependency injection system
-
-## 📋 Requirements
-
-- Python 3.8+
-- pip (Python package manager)
-
-## 🛠️ Installation
-
-1. **Clone or download this project**
-
-2. **Navigate to the project directory**
-   ```bash
-   cd my-larapy-project
-   ```
-
-3. **Install dependencies**
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-4. **Install the project in development mode (makes `larapy` command available)**
-   ```bash
-   pip install -e .
-   ```
-
-5. **Set up environment**
-   ```bash
-   cp .env.example .env
-   ```
-
-6. **Generate application key**
-   ```bash
-   larapy key:generate
-   ```
-
-7. **Set up database (SQLite for quick start)**
-   ```bash
-   touch database/database.sqlite
-   ```
-
-8. **Run migrations**
-   ```bash
-   larapy db:migrate
-   ```
-
-9. **Seed database (optional)**
-   ```bash
-   larapy db:seed
-   ```
-
-## 🏃‍♂️ Running the Application
-
-### Using the Larapy CLI (Recommended)
-```bash
-larapy serve
-```
-
-### Or run directly
-```bash
-python public/index.py
-```
-
-The application will be available at `http://localhost:8000`
-
-## 🎯 Available Commands
-
-### Server Management
-```bash
-# Start development server
-larapy serve --port 8000 --reload
-
-# Start with custom host and port
-larapy serve --host 0.0.0.0 --port 3000
-```
-
-### Code Generation
-```bash
-# Generate a new controller
-larapy make:controller UserController --resource
-
-# Generate a new model
-larapy make:model Post --migration
-
-# Generate middleware
-larapy make:middleware AuthMiddleware
-
-# Generate migration
-larapy make:migration create_posts_table
-```
-
-### Database Operations
-```bash
-# Run migrations
-larapy db:migrate
-
-# Rollback migrations
-larapy db:rollback
-
-# Seed database
-larapy db:seed
-
-# Check migration status
-larapy db:status
-```
-
-### Custom Commands
-```bash
-# Test command with options
-larapy test:command "Your Name" --greeting="Hello"
-
-# Inspirational quotes
-larapy inspire
-
-# Greet in different languages
-larapy greet "World" --lang=es
-```
-
-### Interactive Shell
-```bash
-# Launch interactive Python shell with app context
-larapy tinker
-```
+- **Laravel-style Architecture**: Familiar folder structure with `app/`, `config/`, `routes/`, `resources/`, etc.
+- **Modern Web Framework**: Built on top of Larapy framework with FastAPI under the hood
+- **Beautiful UI**: Bootstrap-based responsive design with modern components
+- **Documentation Ready**: Structure prepared for comprehensive documentation
+- **Developer Friendly**: Hot reload, debugging, and development tools
 
 ## 📁 Project Structure
 
 ```
-my-larapy-project/
-├── app/                    # Application code
-│   ├── Console/           # Console commands
-│   ├── Http/              # HTTP layer (controllers, middleware, kernel)
-│   ├── Models/            # Database models
-│   └── Providers/         # Service providers
-├── bootstrap/             # Application bootstrap
-├── config/                # Configuration files
-├── database/              # Database migrations, seeds, factories
-├── public/                # Public assets and main entry point
-│   └── index.py          # Main application entry point
-├── resources/             # Views, CSS, JS, language files
-│   └── views/            # Jinja2 templates
-├── routes/                # Route definitions
-├── storage/               # File storage (logs, cache, uploads)
-├── tests/                 # Test files
-├── .env.example          # Environment variables template
-├── larapy_cli.py         # Global CLI entry point
-├── larapy_main.py        # Main CLI application
-├── pyproject.toml        # Package configuration
-├── requirements.txt      # Python dependencies
-└── README.md            # This file
+documentation-webiste-larapy/
+├── app/
+│   ├── Http/
+│   │   ├── Controllers/
+│   │   │   ├── Controller.py          # Base controller
+│   │   │   └── HomeController.py      # Home page controller
+│   │   └── Kernel.py                  # HTTP kernel with middleware
+│   └── Providers/
+│       ├── AppServiceProvider.py      # Application services
+│       └── RouteServiceProvider.py    # Route configuration
+├── bootstrap/
+│   └── app.py                         # Application bootstrap
+├── config/
+│   ├── app.py                         # Application configuration
+│   ├── database.py                    # Database configuration
+│   └── view.py                        # View engine configuration
+├── public/
+│   ├── index.py                       # Application entry point
+│   ├── css/                           # Public CSS files
+│   └── js/                            # Public JavaScript files
+├── resources/
+│   ├── css/
+│   │   └── app.css                    # Application styles
+│   ├── js/
+│   │   └── app.js                     # Application JavaScript
+│   └── views/
+│       ├── layouts/
+│       │   └── app.html               # Main layout template
+│       └── home.html                  # Home page template
+├── routes/
+│   ├── web.py                         # Web routes
+│   └── api.py                         # API routes
+├── storage/                           # Storage directories
+├── .env.example                       # Environment template
+├── .gitignore                         # Git ignore rules
+├── requirements.txt                   # Python dependencies
+└── README.md                          # This file
 ```
 
-## 🧪 Testing
+## 🛠 Installation
 
-Run tests using pytest:
+1. **Clone or navigate to the project directory:**
+   ```bash
+   cd documentation-webiste-larapy
+   ```
 
-```bash
-# Run all tests
-pytest
+2. **Install dependencies:**
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-# Run specific test file
-pytest tests/test_example.py
+3. **Set up environment:**
+   ```bash
+   cp .env.example .env
+   ```
 
-# Run with coverage
-pytest --cov=app tests/
-```
+4. **Run the application:**
+   ```bash
+   python public/index.py
+   ```
 
-## 📖 Usage Examples
+5. **Visit the application:**
+   Open your browser to `http://localhost:8000`
 
-### Creating Routes
+## 🎯 Quick Start
+
+The application follows Laravel conventions:
+
+- **Controllers**: Located in `app/Http/Controllers/`
+- **Routes**: Defined in `routes/web.py` and `routes/api.py`
+- **Views**: Jinja2 templates in `resources/views/`
+- **Configuration**: Settings in `config/` directory
+- **Public Assets**: CSS, JS, images in `public/`
+
+## 🔧 Development
+
+### Adding New Routes
+
+Edit `routes/web.py`:
 ```python
-# routes/web.py
-from larapy.routing.route import Route
-
-def register_routes(app):
-    # Basic route
-    Route.get('/', 'app.Http.Controllers.HomeController@index').name('home')
-    
-    # Route with parameters
-    Route.get('/users/{id}', 'app.Http.Controllers.UserController@show')
-    
-    # Route groups
-    Route.group({'prefix': 'api', 'middleware': ['auth']}, lambda: [
-        Route.get('/users', 'app.Http.Controllers.Api.UserController@index'),
-        Route.post('/users', 'app.Http.Controllers.Api.UserController@store'),
-    ])
+# Add to register_routes function
+Route.get('/docs', 'app.Http.Controllers.DocsController@index').name('docs')
 ```
 
-### Using Models
+### Creating Controllers
+
+Controllers should extend the base `Controller` class:
 ```python
-# Interacting with the User model
-from app.Models.User import User
+from .Controller import Controller
+from larapy.view import View
 
-# Create a new user
-user = User.create({
-    'name': 'John Doe',
-    'email': 'john@example.com',
-    'password': 'secure_password'
-})
-
-# Find users
-user = User.find(1)
-users = User.where('email_verified_at', '!=', None).get()
-active_users = User.active().verified().get()
+class DocsController(Controller):
+    async def index(self, request):
+        return View.render('docs.index', {'title': 'Documentation'})
 ```
 
-### Template Usage
+### Adding Views
+
+Create Jinja2 templates in `resources/views/`:
 ```html
-<!-- resources/views/welcome.html -->
 {% extends "layouts/app.html" %}
 
 {% block content %}
 <div class="container">
-    <h1>Welcome, {{ auth.user().name if auth.check() else 'Guest' }}!</h1>
-    
-    <form method="POST" action="{{ route('users.store') }}">
-        {{ csrf_field() }}
-        <input type="text" name="name" value="{{ old('name') }}">
-        
-        {% if errors.has('name') %}
-            <div class="error">{{ errors.first('name') }}</div>
-        {% endif %}
-        
-        <button type="submit">Submit</button>
-    </form>
+    <h1>{{ title }}</h1>
+    <!-- Your content here -->
 </div>
 {% endblock %}
 ```
 
-## 🔧 Configuration
+## 📚 Documentation Structure (Coming Soon)
 
-### Database Configuration
-Edit `config/database.py` to configure your database connections.
+The website is prepared for comprehensive documentation including:
 
-### Application Configuration  
-Edit `config/app.py` for application-wide settings.
-
-### Environment Variables
-Copy `.env.example` to `.env` and configure your environment-specific settings.
+- **Installation Guide**: Step-by-step setup instructions
+- **API Reference**: Complete framework API documentation
+- **Examples**: Code samples and tutorials
+- **Best Practices**: Recommended patterns and practices
 
 ## 🤝 Contributing
 
 1. Fork the repository
 2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Make your changes
-4. Add tests for new functionality
-5. Ensure all tests pass (`pytest`)
-6. Format code (`black .`)
-7. Commit your changes (`git commit -m 'Add amazing feature'`)
-8. Push to the branch (`git push origin feature/amazing-feature`)
-9. Open a Pull Request
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
-## 📄 License
+## 📝 License
 
-This project is open-sourced software licensed under the MIT license.
+This project is open source. Please check the main Larapy repository for license details.
 
-## 🆘 Support
+## 🔗 Links
 
-- 📧 Issues: Report bugs and request features via GitHub issues
-- 📖 Documentation: Visit the [Larapy documentation](https://github.com/larapy/larapy)
-- 💬 Community: Join discussions on GitHub
-
-## 🙏 Acknowledgments
-
-- Inspired by [Laravel](https://laravel.com) - The PHP Framework for Web Artisans
-- Built with [Larapy](https://github.com/larapy/larapy) - Laravel's elegance in Python
-- Powered by [FastAPI](https://fastapi.tiangolo.com/) and [Starlette](https://starlette.io/)
+- [Larapy Framework](https://github.com/larapy/larapy)
+- [Documentation](https://docs.larapy.org) (Coming Soon)
+- [Examples](https://examples.larapy.org) (Coming Soon)
 
 ---
 
-**Made with ❤️ using Larapy - Laravel's elegant syntax meets Python's simplicity**
+**Built with ❤️ using Larapy - Laravel's elegant syntax meets Python's simplicity**
